@@ -1,13 +1,13 @@
-const handlerGetAllContacts = require('./getAllContacts');
-const handlerGetContact = require('./getContact');
-const handlerAddContact = require('./addContact');
-const handlerRemoveContact = require('./removeContact');
-const handlerUpdateContact = require('./updateContact');
+const getAllContacts = require('./getAllContacts');
+const getSingleContact = require('./getSingleContact');
+const addContact = require('./addContact');
+const removeContact = require('./removeContact');
+const updateContact = require('./updateContact');
 
 module.exports = {
-  handlerGetAllContacts,
-  handlerGetContact,
-  handlerAddContact,
-  handlerRemoveContact,
-  handlerUpdateContact,
+  getAllContacts,
+  getSingleContact,
+  addContact,
+  removeContact,
+  updateContact,
 };
