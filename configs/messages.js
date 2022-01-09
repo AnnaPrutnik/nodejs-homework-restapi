@@ -19,12 +19,4 @@ const responseMessages = {
   NO_AUTHORIZED: 'Not authorized',
 };
 
-// “Please enter your name.”
-// “Notification failed, please re-authorize it.”
-// “Your account details have been saved.”
-// “Your email has been updated.”
-// “Thanks for signing up. Your account has been created.”
-// “We’ve saved your profile changes.”
-// We couldn't save your change
-
 module.exports = {responseStatus, responseMessages};

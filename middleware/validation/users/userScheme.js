@@ -1,5 +1,4 @@
 const Joi = require('joi');
-const {Role} = require('../../../configs/constants');
 
 const userSchema = Joi.object({
   email: Joi.string().email({minDomainSegments: 2}).required(),
