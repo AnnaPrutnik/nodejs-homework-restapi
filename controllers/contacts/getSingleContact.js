@@ -1,23 +1,28 @@
-const Contact = require('../../models/Contact');
+const contactRepository = require('../../repository/contacts');
+const {HttpCode} = require('../../configs/constants');
+const {responseStatus, responseMessages} = require('../../configs/messages');
 
 const getSingleContact = async (req, res, next) => {
   try {
-    const id = req.params.id;
-    const contact = await Contact.findById(id);
+    const contactId = req.params.id;
+    const userId = req.user.id;
+    const contact = await contactRepository.getSingleContact(userId, contactId);
     if (!contact) {
-      return res
-        .status(404)
-        .json({
-          code: 404,
-          status: 'Not found',
-          message: `Not found contact wuth id ${id}`,
-        });
+      return res.status(HttpCode.BAD_REQUEST).json({
+        code: HttpCode.BAD_REQUEST,
+        status: responseStatus.ERROR,
+        message: `${responseMessages.NO_CONTACT} ${userId}`,
+      });
     }
-    return res.status(200).json({code: 201, status: 'success', data: contact});
-  } catch (error) {
     return res
-      .status(400)
-      .json({code: 400, status: 'Bad request', message: error.message});
+      .status(HttpCode.OK)
+      .json({code: HttpCode.OK, status: responseStatus.SUCCESS, data: contact});
+  } catch (error) {
+    return res.status(HttpCode.BAD_REQUEST).json({
+      code: HttpCode.BAD_REQUEST,
+      status: responseStatus.ERROR,
+      message: error.message,
+    });
   }
 };
 

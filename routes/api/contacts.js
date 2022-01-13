@@ -13,18 +13,24 @@ const {
   addContactValidation,
   changeContactValidation,
   changeFavoriteValidation,
-} = require('../../middleware/validation/contactValidation');
+} = require('../../middleware/validation/');
 
-router.get('/', getAllContacts);
+const {checkToken} = require('../../middleware/auth/checkToken');
 
-router.get('/:id', getSingleContact);
+router.get('/', checkToken, getAllContacts);
 
-router.post('/', addContactValidation, addContact);
+router.get('/:id', checkToken, getSingleContact);
 
-router.delete('/:id', removeContact);
+router.post('/', [checkToken, addContactValidation], addContact);
 
-router.put('/:id', changeContactValidation, updateContact);
+router.delete('/:id', checkToken, removeContact);
 
-router.patch('/:id/favorite', changeFavoriteValidation, updateContact);
+router.put('/:id', [checkToken, changeContactValidation], updateContact);
+
+router.patch(
+  '/:id/favorite',
+  [checkToken, changeFavoriteValidation],
+  updateContact
+);
 
 module.exports = router;

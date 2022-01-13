@@ -1,19 +1,24 @@
-const Contact = require('../../models/Contact');
+const contactRepository = require('../../repository/contacts');
+const {HttpCode} = require('../../configs/constants');
+const {responseStatus, responseMessages} = require('../../configs/messages');
 
 const addContact = async (req, res, next) => {
   try {
     const body = req.body;
-    const newContact = await Contact.create(body);
-    res.status(201).json({
-      code: 201,
-      status: 'success',
-      message: 'Contact create',
+    const userId = req.user.id;
+    const newContact = await contactRepository.addContact(userId, body);
+    res.status(HttpCode.CREATED).json({
+      code: HttpCode.CREATED,
+      status: responseStatus.CREATED,
+      message: responseMessages.CREATED_CONTACT,
       data: newContact,
     });
   } catch (error) {
-    return res
-      .status(400)
-      .json({code: 400, status: 'Bad request', message: error.message});
+    return res.status(HttpCode.BAD_REQUEST).json({
+      code: HttpCode.BAD_REQUEST,
+      status: responseStatus.BAD_REQUEST,
+      message: error.message,
+    });
   }
 };
 
