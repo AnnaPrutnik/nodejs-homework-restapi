@@ -2,7 +2,7 @@ const User = require('../../models/User');
 
 const updateUser = async (userId, body) => {
   const user = await User.findOneAndUpdate(
-    userId,
+    {_id: userId},
     {...body},
     {
       new: true,

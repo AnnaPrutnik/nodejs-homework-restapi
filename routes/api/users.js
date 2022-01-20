@@ -7,11 +7,14 @@ const {
   getCurrentUser,
   changeRole,
   updateAvatars,
+  verificationEmail,
+  repeatSendEmail,
 } = require('../../controllers/users');
 
 const {
   userValidation,
   changeSubscriptionValidation,
+  sendEmailValidation,
 } = require('../../middleware/validation');
 
 const {checkToken} = require('../../middleware/auth/checkToken');
@@ -23,5 +26,7 @@ router.get('/logout', checkToken, logoutUser);
 router.get('/current', checkToken, getCurrentUser);
 router.patch('/', [checkToken, changeSubscriptionValidation], changeRole);
 router.patch('/avatars', [checkToken, upload.single('avatar')], updateAvatars);
+router.get('/verify/:verificationToken', verificationEmail);
+router.post('/verify', sendEmailValidation, repeatSendEmail);
 
 module.exports = router;

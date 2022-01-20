@@ -1,6 +1,7 @@
 const authService = require('../../services/auth/auth');
 const {HttpCode} = require('../../configs/constants');
 const {responseStatus, responseMessages} = require('../../configs/messages');
+const sendVerifyTokenService = require('../../services/sendEmail/sendEmailService');
 
 const signupUser = async (req, res, next) => {
   try {
@@ -14,12 +15,18 @@ const signupUser = async (req, res, next) => {
       });
     }
 
-    const data = await authService.createUser(req.body);
-    const {subscription, avatarURL} = data;
+    const userData = await authService.createUser(req.body);
+    const {subscription, avatarURL, verificationToken} = userData;
+    const isSendEmailWithVerification = await sendVerifyTokenService.sendEmail(
+      email,
+      verificationToken
+    );
+
     return res.status(HttpCode.CREATED).json({
       code: HttpCode.CREATED,
       status: responseStatus.SUCCESS,
       user: {email, subscription, avatarURL},
+      isSendEmailWithVerification,
     });
   } catch (error) {
     next(error);
