@@ -4,6 +4,7 @@ const {Role} = require('../configs/constants');
 
 const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
+const {nanoid} = require('nanoid');
 
 const userSchema = new Schema(
   {
@@ -33,6 +34,15 @@ const userSchema = new Schema(
       default: function () {
         return gravatar.url(this.email, {s: 250}, true);
       },
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      default: nanoid(),
+      required: [true, 'Verify token is required'],
     },
   },
   {

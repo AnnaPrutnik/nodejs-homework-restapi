@@ -15,4 +15,8 @@ const changeSubscription = Joi.object({
     .required(),
 });
 
-module.exports = {userSchema, changeSubscription};
+const sendEmailSchema = Joi.object({
+  email: Joi.string().email({minDomainSegments: 2}).required(),
+});
+
+module.exports = {userSchema, changeSubscription, sendEmailSchema};

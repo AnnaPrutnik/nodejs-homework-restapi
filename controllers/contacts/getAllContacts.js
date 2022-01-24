@@ -2,7 +2,7 @@ const contactRepository = require('../../repository/contacts');
 const {HttpCode} = require('../../configs/constants');
 const {responseStatus} = require('../../configs/messages');
 
-const getAllContacts = async (req, res) => {
+const getAllContacts = async (req, res, nex[]) => {
   const userId = req.user.id;
   const queryParams = req.query;
   try {

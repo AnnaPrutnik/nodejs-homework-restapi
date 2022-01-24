@@ -4,6 +4,7 @@ const addUser = require('./addUser');
 const setToken = require('./setToken');
 const updateUser = require('./updateUser');
 const updateAvatar = require('./updateAvatar');
+const findByVerificationToken = require('./findByVerificationToken');
 
 module.exports = {
   findUserByEmail,
@@ -12,4 +13,5 @@ module.exports = {
   setToken,
   updateUser,
   updateAvatar,
+  findByVerificationToken,
 };

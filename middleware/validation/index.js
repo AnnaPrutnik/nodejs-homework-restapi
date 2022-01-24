@@ -7,6 +7,7 @@ const {
 const {
   userValidation,
   changeSubscriptionValidation,
+  sendEmailValidation,
 } = require('./users/userValidation');
 
 module.exports = {
@@ -15,4 +16,5 @@ module.exports = {
   changeFavoriteValidation,
   userValidation,
   changeSubscriptionValidation,
+  sendEmailValidation,
 };
